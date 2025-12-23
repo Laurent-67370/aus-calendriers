@@ -1,0 +1,26 @@
+{
+  "name": "AUS Tennis de Table - Calendriers",
+  "short_name": "AUS TT",
+  "description": "Accédez aux calendriers des 3 équipes de tennis de table de l'Alsatia Unitas Schiltigheim",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e40af",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231e40af' width='100' height='100' rx='20'/><text y='.9em' x='50%' text-anchor='middle' font-size='70'>🏓</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231e40af' width='100' height='100' rx='20'/><text y='.9em' x='50%' text-anchor='middle' font-size='70'>🏓</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["sports"],
+  "lang": "fr-FR"
+}

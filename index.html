@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏓 AUS Tennis de Table - Calendriers 2025-2026</title>
+    <meta name="description" content="Accédez aux calendriers des 3 équipes de tennis de table de l'Alsatia Unitas Schiltigheim">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1e40af">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AUS TT">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏓</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231e40af' width='100' height='100' rx='20'/><text y='.9em' x='50%' text-anchor='middle' font-size='70'>🏓</text></svg>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
+            --accent: #f97316;
+            --accent-light: #fb923c;
+            --bg-dark: #0f172a;
+            --bg-darker: #020617;
+            --card-bg: #1e293b;
+            --card-hover: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --success: #22c55e;
+            --gold: #fbbf24;
+            --silver: #94a3b8;
+            --bronze: #cd7f32;
+        }
+
+        /* Thème clair */
+        [data-theme="light"] {
+            --bg-dark: #f1f5f9;
+            --bg-darker: #e2e8f0;
+            --card-bg: #ffffff;
+            --card-hover: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 50%, var(--bg-darker) 100%);
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        [data-theme="light"] .bg-animation {
+            background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 50%, #e2e8f0 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.03) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.03) 0%, transparent 50%);
+            animation: pulse 18s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(5%, 5%) scale(1.1); }
+        }
+
+        /* Floating ping pong balls */
+        .floating-ball {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fff 0%, #fbbf24 100%);
+            opacity: 0.1;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-ball:nth-child(2) { left: 20%; top: 30%; animation-delay: -5s; animation-duration: 25s; }
+        .floating-ball:nth-child(3) { left: 70%; top: 60%; animation-delay: -10s; animation-duration: 22s; }
+        .floating-ball:nth-child(4) { left: 40%; top: 80%; animation-delay: -15s; animation-duration: 28s; }
+        .floating-ball:nth-child(5) { left: 85%; top: 20%; animation-delay: -8s; animation-duration: 24s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-30px) rotate(90deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
+            75% { transform: translateY(-40px) rotate(270deg); }
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--card-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Help toggle button */
+        .help-toggle {
+            position: fixed;
+            top: 4.5rem;
+            right: 1rem;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--card-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="light"] .theme-toggle,
+        [data-theme="light"] .help-toggle {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle:hover, .help-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-toggle-icon, .help-toggle-icon {
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover .theme-toggle-icon { transform: rotate(20deg); }
+        .help-toggle:hover .help-toggle-icon { transform: scale(1.1); }
+
+        .theme-toggle-text, .help-toggle-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Install button */
+        .install-btn {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
+        }
+
+        .install-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
+        }
+
+        .install-btn.show {
+            display: flex;
+        }
+
+        /* Offline indicator */
+        .offline-indicator {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1001;
+            background: #ef4444;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .offline-indicator.show {
+            display: flex;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 1.5rem 2rem;
+            position: relative;
+        }
+
+        .logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo-icon {
+            font-size: 4rem;
+            filter: drop-shadow(0 4px 20px rgba(249, 115, 22, 0.3));
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .club-badge {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 2px solid var(--primary-light);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            color: white;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-light) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            animation: fadeInDown 0.8s ease-out 0.2s both;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease-out 0.3s both;
+        }
+
+        .season-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+            animation: fadeInDown 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            animation: fadeIn 0.8s ease-out 0.5s both;
+        }
+
+        .section-title h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Cards grid */
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: fadeInUp 0.8s ease-out both;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        [data-theme="light"] .team-card {
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .team-card:nth-child(1) { animation-delay: 0.6s; }
+        .team-card:nth-child(2) { animation-delay: 0.7s; }
+        .team-card:nth-child(3) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--card-accent), var(--card-accent-light));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .team-card:hover {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Card accent colors */
+        .team-card.excellence {
+            --card-accent: #fbbf24;
+            --card-accent-light: #fcd34d;
+        }
+
+        .team-card.honneur {
+            --card-accent: #94a3b8;
+            --card-accent-light: #cbd5e1;
+        }
+
+        .team-card.division {
+            --card-accent: #cd7f32;
+            --card-accent-light: #d4956a;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--card-accent), var(--card-accent-light));
+            color: var(--bg-dark);
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title-group {
+            flex: 1;
+        }
+
+        .card-title-group h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+            color: var(--text-primary);
+        }
+
+        .division-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--card-accent);
+            border: 1px solid var(--card-accent);
+        }
+
+        [data-theme="light"] .division-badge {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .detail-item .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        [data-theme="light"] .detail-item .icon {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .card-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, var(--card-accent), var(--card-accent-light));
+            color: var(--bg-dark);
+            padding: 1rem 1.5rem;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .team-card:hover .card-cta {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-cta .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover .card-cta .arrow {
+            transform: translateX(4px);
+        }
+
+        /* Info section */
+        .info-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: fadeInUp 0.8s ease-out 0.9s both;
+        }
+
+        [data-theme="light"] .info-section {
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .info-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .info-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .info-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Help section & Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 2.5rem 2rem 2rem;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .modal-content {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        [data-theme="light"] .modal-close {
+            background: rgba(0,0,0,0.1);
+        }
+
+        .modal-close:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: white;
+        }
+
+        .help-section {
+            margin-top: 0;
+            border: none;
+            background: transparent;
+            padding: 0;
+            box-shadow: none;
+            animation: none;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .help-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.25rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .help-item {
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .help-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        [data-theme="light"] .help-item:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .help-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .help-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text-primary);
+        }
+
+        .help-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .help-content strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem 3rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        footer .club-name {
+            font-weight: 600;
+            color: var(--primary-light);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Quick access buttons (mobile) */
+        .quick-access {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 900; /* Augmenté pour être au dessus du footer */
+            backdrop-filter: blur(10px);
+        }
+
+        [data-theme="light"] .quick-access {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-access-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .quick-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.75rem 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            /* Réactivité tactile améliorée */
+            -webkit-tap-highlight-color: rgba(30, 64, 175, 0.3);
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            /* Transitions rapides pour le feedback */
+            transition: background 0.12s ease, transform 0.08s ease, color 0.12s ease;
+        }
+
+        [data-theme="light"] .quick-btn {
+            background: rgba(0, 0, 0, 0.05);
+            -webkit-tap-highlight-color: rgba(30, 64, 175, 0.2);
+        }
+
+        .quick-btn:active {
+            transform: scale(0.92);
+            background: var(--primary) !important;
+            color: white !important;
+        }
+        
+        /* Effet ripple visuel pour mobile */
+        .quick-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.1s ease;
+            pointer-events: none;
+        }
+        
+        .quick-btn:active::after {
+            opacity: 0.25;
+        }
+        
+        .quick-btn:hover {
+            /* Pas de hover sur mobile pour éviter les bugs sticky */
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (hover: hover) {
+            .quick-btn:hover {
+                background: var(--primary);
+                color: white;
+                transform: scale(1.02);
+            }
+        }
+
+        .quick-btn .emoji {
+            font-size: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 5rem 1rem 1.5rem;
+            }
+
+            .logo-icon {
+                font-size: 3rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 1.5rem 1rem 6rem;
+            }
+
+            .teams-grid {
+                gap: 1.25rem;
+            }
+
+            .team-card {
+                padding: 1.5rem;
+            }
+
+            .team-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .card-title-group h3 {
+                font-size: 1.15rem;
+            }
+
+            .info-section {
+                padding: 1.5rem;
+            }
+
+            .quick-access {
+                display: block;
+            }
+
+            footer {
+                padding-bottom: 8rem;
+            }
+
+            .theme-toggle {
+                top: 0.75rem;
+                right: 0.75rem;
+                padding: 0.4rem 0.75rem;
+            }
+
+            .theme-toggle-text {
+                display: none;
+            }
+
+            .help-toggle {
+                top: 0.75rem;
+                right: 3.5rem; /* Left of theme toggle */
+                padding: 0.4rem 0.75rem;
+            }
+            
+            .help-toggle-text {
+                display: none;
+            }
+
+            .install-btn {
+                top: 0.75rem;
+                left: 0.75rem;
+                padding: 0.4rem 0.75rem;
+            }
+
+            .install-btn span:last-child {
+                display: none;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .teams-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations for scroll */
+        .team-card:active {
+            transform: scale(0.98);
+        }
+
+        /* PWA banner */
+        .pwa-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .pwa-banner-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .pwa-banner-content .icon {
+            font-size: 2rem;
+        }
+
+        .pwa-banner-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+            color: white;
+        }
+
+        .pwa-banner-text p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pwa-banner-btn {
+            background: white;
+            color: var(--primary);
+            padding: 0.6rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .pwa-banner-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 500px) {
+            .pwa-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .pwa-banner-content {
+                flex-direction: column;
+            }
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 5rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1001;
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .toast {
+                bottom: 7rem;
+                width: calc(100% - 2rem);
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="bg-animation">
+        <div class="floating-ball"></div>
+        <div class="floating-ball"></div>
+        <div class="floating-ball"></div>
+        <div class="floating-ball"></div>
+        <div class="floating-ball"></div>
+    </div>
+
+    <!-- Theme toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+        <span class="theme-toggle-icon">🌙</span>
+        <span class="theme-toggle-text">Mode sombre</span>
+    </button>
+
+    <!-- Help toggle -->
+    <button class="help-toggle" id="helpToggle" aria-label="Ouvrir l'aide">
+        <span class="help-toggle-icon">❓</span>
+        <span class="help-toggle-text">Aide</span>
+    </button>
+
+    <!-- Install button -->
+    <button class="install-btn" id="installBtn">
+        <span>📱</span>
+        <span>Installer l'app</span>
+    </button>
+
+    <!-- Offline indicator -->
+    <div class="offline-indicator" id="offlineIndicator">
+        <span>📵</span>
+        <span>Mode hors ligne</span>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span>✅</span>
+        <span id="toastMessage">Application installée !</span>
+    </div>
+
+    <header>
+        <div class="logo-container">
+            <span class="logo-icon">🏓</span>
+            <span class="club-badge">AUS</span>
+        </div>
+        <h1>Alsatia Unitas Schiltigheim</h1>
+        <p class="subtitle">Tennis de Table • Calendriers & Scores</p>
+        <span class="season-badge">
+            <span>📅</span>
+            Saison 2025-2026
+        </span>
+    </header>
+
+    <main>
+        <div class="pwa-banner">
+            <div class="pwa-banner-content">
+                <span class="icon">📱</span>
+                <div class="pwa-banner-text">
+                    <h4>Applications installables</h4>
+                    <p>Chaque calendrier fonctionne hors ligne sur votre téléphone</p>
+                </div>
+            </div>
+            <a href="#teams" class="pwa-banner-btn">Voir les équipes ↓</a>
+        </div>
+
+        <div class="section-title">
+            <h2>Choisissez votre équipe</h2>
+            <p>Accédez au calendrier, aux compositions et aux scores</p>
+        </div>
+
+        <div class="teams-grid" id="teams">
+            <!-- Équipe 1 -->
+            <a href="https://calendrier-aus-equipe1-2025.netlify.app/" class="team-card excellence" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="team-number">1</div>
+                    <div class="card-title-group">
+                        <h3>ALSATIA 1</h3>
+                        <span class="division-badge">🏆 Excellence</span>
+                    </div>
+                </div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="icon">🎯</span>
+                        <span>Poule A • 14 matchs</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="icon">📍</span>
+                        <span>Secteur Départemental</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="icon">👑</span>
+                        <span>Capitaine : <strong>Quentin</strong></span>
+                    </div>
+                </div>
+                <div class="card-cta">
+                    <span>Accéder au calendrier</span>
+                    <span class="arrow">→</span>
+                </div>
+            </a>
+
+            <!-- Équipe 2 -->
+            <a href="https://calendrier-aus-equipe2-2025.netlify.app/" class="team-card honneur" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="team-number">2</div>
+                    <div class="card-title-group">
+                        <h3>ALSATIA 2</h3>
+                        <span class="division-badge">🥈 Honneur</span>
+                    </div>
+                </div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="icon">🎯</span>
+                        <span>Poule D • 14 matchs</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="icon">📍</span>
+                        <span>Secteur Départemental</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="icon">👑</span>
+                        <span>Capitaine : <strong>Stéphane</strong></span>
+                    </div>
+                </div>
+                <div class="card-cta">
+                    <span>Accéder au calendrier</span>
+                    <span class="arrow">→</span>
+                </div>
+            </a>
+
+            <!-- Équipe 3 -->
+            <a href="https://calendrier-asuschilti3-2025.netlify.app/" class="team-card division" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="team-number">3</div>
+                    <div class="card-title-group">
+                        <h3>ALSATIA 3</h3>
+                        <span class="division-badge">🥉 Division 2</span>
+                    </div>
+                </div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="icon">🎯</span>
+                        <span>Poule A • 14 matchs</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="icon">📍</span>
+                        <span>Secteur Strasbourg</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="icon">👑</span>
+                        <span>Capitaine : <strong>Philippe</strong></span>
+                    </div>
+                </div>
+                <div class="card-cta">
+                    <span>Accéder au calendrier</span>
+                    <span class="arrow">→</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="info-section">
+            <h3>
+                <span>💡</span>
+                Fonctionnalités disponibles
+            </h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-icon">📅</div>
+                    <div class="info-content">
+                        <h4>Calendrier complet</h4>
+                        <p>Visualisez tous les matchs de la saison avec filtres par mois et lieu</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">👥</div>
+                    <div class="info-content">
+                        <h4>Gestion d'équipe</h4>
+                        <p>Définissez les disponibilités et composez l'équipe pour chaque match</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📊</div>
+                    <div class="info-content">
+                        <h4>Scores en direct</h4>
+                        <p>Saisissez et consultez les résultats des rencontres</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📱</div>
+                    <div class="info-content">
+                        <h4>Mode hors ligne</h4>
+                        <p>Installez l'app sur votre téléphone pour un accès même sans connexion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p><span class="club-name">🏓 Alsatia Unitas Schiltigheim</span></p>
+        <p>Tennis de Table • Bas-Rhin • Alsace</p>
+        <div class="footer-links">
+            <a href="https://calendrier-aus-equipe1-2025.netlify.app/">Équipe 1</a>
+            <a href="https://calendrier-aus-equipe2-2025.netlify.app/">Équipe 2</a>
+            <a href="https://calendrier-asuschilti3-2025.netlify.app/">Équipe 3</a>
+        </div>
+        <p style="margin-top: 1.5rem; opacity: 0.6; font-size: 0.8rem;">Applications PWA développées pour l'AUS • Saison 2025-2026</p>
+    </footer>
+
+    <!-- Quick access mobile -->
+    <nav class="quick-access">
+        <div class="quick-access-grid">
+            <a href="https://calendrier-aus-equipe1-2025.netlify.app/" class="quick-btn" target="_blank" rel="noopener">
+                <span class="emoji">🥇</span>
+                <span>Équipe 1</span>
+            </a>
+            <a href="https://calendrier-aus-equipe2-2025.netlify.app/" class="quick-btn" target="_blank" rel="noopener">
+                <span class="emoji">🥈</span>
+                <span>Équipe 2</span>
+            </a>
+            <a href="https://calendrier-asuschilti3-2025.netlify.app/" class="quick-btn" target="_blank" rel="noopener">
+                <span class="emoji">🥉</span>
+                <span>Équipe 3</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Modal Aide -->
+    <div class="modal-overlay" id="helpModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeHelp">&times;</button>
+            <div class="help-section">
+                <h3>
+                    <span>❓</span>
+                    Aide & Guide d'utilisation
+                </h3>
+                <div class="help-grid">
+                    <div class="help-item">
+                        <div class="help-number">1</div>
+                        <div class="help-content">
+                            <h4>📅 Consulter les matchs</h4>
+                            <p>Sélectionnez votre équipe, puis utilisez la barre de recherche et les filtres (Domicile, Extérieur, par mois) pour trouver rapidement un match.</p>
+                        </div>
+                    </div>
+                    <div class="help-item">
+                        <div class="help-number">2</div>
+                        <div class="help-content">
+                            <h4>👥 Composer l'équipe</h4>
+                            <p>Cliquez sur <strong>« 👥 Gérer l'équipe »</strong> sur un match pour définir les disponibilités (✔️ / ❌ / ❔) et sélectionner les joueurs de la rencontre.</p>
+                        </div>
+                    </div>
+                    <div class="help-item">
+                        <div class="help-number">3</div>
+                        <div class="help-content">
+                            <h4>📊 Saisir les scores</h4>
+                            <p>Après un match, cliquez sur <strong>« 📊 Saisir score »</strong> pour enregistrer le résultat final. Les données sont partagées et visibles par tous.</p>
+                        </div>
+                    </div>
+                    <div class="help-item">
+                        <div class="help-number">4</div>
+                        <div class="help-content">
+                            <h4>✏️ Modifier l'effectif</h4>
+                            <p>Cliquez sur le bouton <strong>« ✏️ Effectif »</strong> en haut de page pour ajouter, modifier ou supprimer des joueurs de la liste.</p>
+                        </div>
+                    </div>
+                    <div class="help-item">
+                        <div class="help-number">5</div>
+                        <div class="help-content">
+                            <h4>📱 Installer l'application</h4>
+                            <p>Cliquez sur <strong>« 📱 Installer »</strong> pour ajouter l'app à votre écran d'accueil. Elle fonctionnera même sans connexion internet !</p>
+                        </div>
+                    </div>
+                    <div class="help-item">
+                        <div class="help-number">6</div>
+                        <div class="help-content">
+                            <h4>🌙 Changer le thème</h4>
+                            <p>Utilisez le bouton en haut à droite pour basculer entre le mode sombre et le mode clair selon vos préférences.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('.theme-toggle-icon');
+        const themeText = themeToggle.querySelector('.theme-toggle-text');
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        updateThemeButton(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeButton(newTheme);
+        });
+
+        function updateThemeButton(theme) {
+            if (theme === 'dark') {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Mode sombre';
+            } else {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Mode clair';
+            }
+        }
+
+        // Help Modal functionality
+        const helpToggle = document.getElementById('helpToggle');
+        const helpModal = document.getElementById('helpModal');
+        const closeHelp = document.getElementById('closeHelp');
+
+        function openModal() {
+            helpModal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            helpModal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        helpToggle.addEventListener('click', openModal);
+        closeHelp.addEventListener('click', closeModal);
+
+        // Close on click outside
+        helpModal.addEventListener('click', (e) => {
+            if (e.target === helpModal) {
+                closeModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && helpModal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+
+        // PWA Installation
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.classList.add('show');
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    showToast('✅ Application installée avec succès !');
+                }
+                
+                deferredPrompt = null;
+                installBtn.classList.remove('show');
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            showToast('✅ Application installée avec succès !');
+            installBtn.classList.remove('show');
+        });
+
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Offline detection
+        const offlineIndicator = document.getElementById('offlineIndicator');
+
+        function updateOnlineStatus() {
+            if (!navigator.onLine) {
+                offlineIndicator.classList.add('show');
+            } else {
+                offlineIndicator.classList.remove('show');
+            }
+        }
+
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        updateOnlineStatus();
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('SW registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('SW registration failed:', error);
+                    });
+            });
+        }
+
+        // Add touch feedback for mobile only on team cards (not navigation)
+        document.querySelectorAll('.team-card').forEach(card => {
+            card.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('touchend', function() {
+                this.style.transform = '';
+            });
+        });
+
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.team-card, .info-section').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
