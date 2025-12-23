@@ -792,100 +792,6 @@
             color: var(--accent);
         }
 
-        /* Quick access buttons (mobile) */
-        .quick-access {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--card-bg);
-            padding: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 900; /* Augmenté pour être au dessus du footer */
-            backdrop-filter: blur(10px);
-        }
-
-        [data-theme="light"] .quick-access {
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .quick-access-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .quick-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.75rem 0.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            /* Réactivité tactile améliorée */
-            -webkit-tap-highlight-color: rgba(30, 64, 175, 0.3);
-            touch-action: manipulation;
-            user-select: none;
-            -webkit-user-select: none;
-            /* Transitions rapides pour le feedback */
-            transition: background 0.12s ease, transform 0.08s ease, color 0.12s ease;
-        }
-
-        [data-theme="light"] .quick-btn {
-            background: rgba(0, 0, 0, 0.05);
-            -webkit-tap-highlight-color: rgba(30, 64, 175, 0.2);
-        }
-
-        .quick-btn:active {
-            transform: scale(0.92);
-            background: var(--primary) !important;
-            color: white !important;
-        }
-        
-        /* Effet ripple visuel pour mobile */
-        .quick-btn::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 12px;
-            background: var(--primary);
-            opacity: 0;
-            transition: opacity 0.1s ease;
-            pointer-events: none;
-        }
-        
-        .quick-btn:active::after {
-            opacity: 0.25;
-        }
-        
-        .quick-btn:hover {
-            /* Pas de hover sur mobile pour éviter les bugs sticky */
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        @media (hover: hover) {
-            .quick-btn:hover {
-                background: var(--primary);
-                color: white;
-                transform: scale(1.02);
-            }
-        }
-
-        .quick-btn .emoji {
-            font-size: 1.5rem;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             header {
@@ -905,7 +811,7 @@
             }
 
             main {
-                padding: 1.5rem 1rem 6rem;
+                padding: 1.5rem 1rem 4rem;
             }
 
             .teams-grid {
@@ -930,12 +836,8 @@
                 padding: 1.5rem;
             }
 
-            .quick-access {
-                display: block;
-            }
-
             footer {
-                padding-bottom: 8rem;
+                padding-bottom: 3rem;
             }
 
             .theme-toggle {
@@ -1072,7 +974,7 @@
 
         @media (max-width: 768px) {
             .toast {
-                bottom: 7rem;
+                bottom: 2rem;
                 width: calc(100% - 2rem);
                 max-width: 400px;
             }
@@ -1288,24 +1190,6 @@
         </div>
         <p style="margin-top: 1.5rem; opacity: 0.6; font-size: 0.8rem;">Applications PWA développées pour l'AUS • Saison 2025-2026</p>
     </footer>
-
-    <!-- Quick access mobile -->
-    <nav class="quick-access">
-        <div class="quick-access-grid">
-            <a href="https://calendrier-aus-equipe1-2025.netlify.app/" class="quick-btn" target="_blank" rel="noopener">
-                <span class="emoji">🥇</span>
-                <span>Équipe 1</span>
-            </a>
-            <a href="https://calendrier-aus-equipe2-2025.netlify.app/" class="quick-btn" target="_blank" rel="noopener">
-                <span class="emoji">🥈</span>
-                <span>Équipe 2</span>
-            </a>
-            <a href="https://calendrier-asuschilti3-2025.netlify.app/" class="quick-btn" target="_blank" rel="noopener">
-                <span class="emoji">🥉</span>
-                <span>Équipe 3</span>
-            </a>
-        </div>
-    </nav>
 
     <!-- Modal Aide -->
     <div class="modal-overlay" id="helpModal">
