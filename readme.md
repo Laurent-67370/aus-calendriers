@@ -1,6 +1,6 @@
 # 🏓 AUS Tennis de Table - Portail des Calendriers
 
-Ce projet est une **Landing Page (Page d'accueil)** permettant aux membres du club *Alsatia Unitas Schiltigheim* d'accéder rapidement aux calendriers et scores des 3 équipes de compétition pour la saison 2025-2026.
+Ce projet est une **Landing Page (Page d'accueil)** permettant aux membres du club *Alsatia Unitas Schiltigheim* d'accéder rapidement aux calendriers et scores des 3 équipes de compétition pour la saison 2026-2027.
 
 Le site est conçu comme une **PWA (Progressive Web App)**, ce qui signifie qu'il peut être installé sur un téléphone comme une application native et fonctionner hors ligne.
 
